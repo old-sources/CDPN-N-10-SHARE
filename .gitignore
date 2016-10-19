@@ -1,0 +1,62 @@
+
+Skip to content
+This repository
+
+    Pull requests
+    Issues
+    Gist
+
+    @simonLouvet
+
+9
+0
+
+    4
+
+imie-source/CPCSI-N-03-SHARE
+Code
+Issues 0
+Pull requests 0
+Projects 0
+Wiki
+Pulse
+Graphs
+Settings
+CPCSI-N-03-SHARE/.gitignore
+dec58b8 on 24 Aug
+@simonLouvet simonLouvet Update .gitignore
+36 lines (29 sloc) 401 Bytes
+#java compile
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+# temporary files
+*~
+
+# build and IDE specific files and directories 
+.project
+.settings
+.classpath
+.externalToolBuilders/
+.tern*
+build/
+build/*
+build
+bin/
+bin
+
+#merge conflict
+*.orig
+
+# gradle
+.gradle/
+.gradle
+.gradle/*
+
