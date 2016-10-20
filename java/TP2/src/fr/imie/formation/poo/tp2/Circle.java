@@ -1,5 +1,8 @@
 package fr.imie.formation.poo.tp2;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Circle implements Shape {
 	
@@ -25,6 +28,12 @@ public class Circle implements Shape {
 	@Override
 	public Float perimeter() {
 		return (float) (2*Math.PI*radius);
+	}
+
+
+	public static List<String> getBuildParameter() {
+		String[] out =  {"rayon"};
+		return new ArrayList<>(Arrays.asList(out));
 	}
 
 }

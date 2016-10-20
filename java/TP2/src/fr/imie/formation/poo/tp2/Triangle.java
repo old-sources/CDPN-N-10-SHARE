@@ -1,5 +1,9 @@
 package fr.imie.formation.poo.tp2;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Triangle implements Shape {
 
 	private Float side1;
@@ -7,11 +11,11 @@ public class Triangle implements Shape {
 	private Float side3;
 	protected final String shapeType="triangle";
 
-	public Triangle(Float side1, Float side2, Float side3) {
+	public Triangle(Float...sides) {
 		super();
-		this.side1 = side1;
-		this.side2 = side2;
-		this.side3 = side3;
+		this.side1 = sides[0];
+		this.side2 = sides[1];
+		this.side3 = sides[2];
 	}
 
 	@Override
@@ -28,6 +32,11 @@ public class Triangle implements Shape {
 	@Override
 	public String getShapeType() {
 		return this.shapeType;
+	}
+
+	public static List<String> getBuildParameter() {
+		String[] out =  {"côté 1","côté 2","côté 3"};
+		return new ArrayList<>(Arrays.asList(out));
 	}
 
 }

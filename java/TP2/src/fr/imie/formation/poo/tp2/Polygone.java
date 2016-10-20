@@ -1,5 +1,9 @@
 package fr.imie.formation.poo.tp2;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Polygone implements Shape {
 
 	private Triangle triangleModel;
@@ -23,9 +27,10 @@ public class Polygone implements Shape {
 		if (params[0] <= 0) {
 			throw new IllegalArgumentException("la dimension du rayon de polygone régulier doit être positive");
 		}
-		this.triangleModel = new Triangle(side, params[0], params[0]);
-		this.nbSide = nbSide;
 		this.side = (float) (2 * params[0] * Math.sin(Math.PI / nbSide));
+		this.triangleModel = new Triangle(this.side, params[0], params[0]);
+		this.nbSide = nbSide;
+		
 
 	}
 
@@ -42,6 +47,11 @@ public class Polygone implements Shape {
 	@Override
 	public String getShapeType() {
 		return shapeType;
+	}
+
+	public static List<String> getBuildParameter() {
+		String[] out =  {"rayon","nombre de côté"};
+		return new ArrayList<>(Arrays.asList(out));
 	}
 
 }

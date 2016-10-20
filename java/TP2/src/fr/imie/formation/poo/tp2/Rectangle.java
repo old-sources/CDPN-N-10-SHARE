@@ -1,5 +1,9 @@
 package fr.imie.formation.poo.tp2;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Rectangle implements Shape {
 	
 	private Float width;
@@ -17,6 +21,11 @@ public class Rectangle implements Shape {
 		}
 		this.width=sides[0];
 		this.height=sides[1];
+	}
+	
+	public static List<String> getBuildParameter(){
+		String[] out =  {"côté 1","côté 2"};
+		return new ArrayList<>(Arrays.asList(out));
 	}
 
 	@Override
