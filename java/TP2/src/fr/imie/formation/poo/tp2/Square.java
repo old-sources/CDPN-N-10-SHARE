@@ -9,8 +9,8 @@ public class Square extends Rectangle {
 		return shapeType;
 	}
 
-	public Square(Float side) {
-		super(side, side);
+	public Square(Float...side) {
+		super(side[0],side[0]);
 	}
 
 }

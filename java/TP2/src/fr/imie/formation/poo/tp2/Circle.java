@@ -12,9 +12,9 @@ public class Circle implements Shape {
 	}
 	
 	
-	public Circle(Float radius) {
+	public Circle(Float...params) {
 		super();
-		this.radius = radius;
+		this.radius = params[0];
 	}
 
 	@Override
