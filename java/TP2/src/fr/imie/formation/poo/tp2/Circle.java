@@ -1,7 +1,7 @@
 package fr.imie.formation.poo.tp2;
 
 
-public class Circle extends Shape {
+public class Circle implements Shape {
 	
 	private Float radius;
 	protected final String shapeType="circle";
@@ -18,12 +18,12 @@ public class Circle extends Shape {
 	}
 
 	@Override
-	Float area() {
+	public Float area() {
 		return  (float) (Math.pow(radius,2)*Math.PI);
 	}
 
 	@Override
-	Float perimeter() {
+	public Float perimeter() {
 		return (float) (2*Math.PI*radius);
 	}
 

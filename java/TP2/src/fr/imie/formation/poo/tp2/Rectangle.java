@@ -1,6 +1,6 @@
 package fr.imie.formation.poo.tp2;
 
-public class Rectangle extends Shape {
+public class Rectangle implements Shape {
 	
 	private Float width;
 	private Float height;
@@ -10,19 +10,22 @@ public class Rectangle extends Shape {
 	public String getShapeType() {
 		return shapeType;
 	}
-
-	public Rectangle(Float width, Float height){
-		this.width=width;
-		this.height=height;
+	
+	public Rectangle(Float...sides){
+		if(sides[0]<=0 || sides[1]<=0){
+			throw new IllegalArgumentException("les côtés d'un rectangle doivent être positifs");
+		}
+		this.width=sides[0];
+		this.height=sides[1];
 	}
 
 	@Override
-	Float area() {
+	public Float area() {
 		return width*height;
 	}
 
 	@Override
-	Float perimeter() {
+	public Float perimeter() {
 		return (width+height)*2;
 	}
 

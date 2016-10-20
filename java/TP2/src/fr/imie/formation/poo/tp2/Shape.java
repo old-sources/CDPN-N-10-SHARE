@@ -1,7 +1,6 @@
 package fr.imie.formation.poo.tp2;
 
-public abstract class Shape {
-	protected final String shapeType="inconnu";
+public interface Shape {
 	
 	abstract Float area();
 	abstract Float perimeter();

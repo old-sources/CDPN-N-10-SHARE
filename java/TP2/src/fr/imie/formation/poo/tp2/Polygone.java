@@ -1,6 +1,6 @@
 package fr.imie.formation.poo.tp2;
 
-public class Polygone extends Shape {
+public class Polygone implements Shape {
 
 	private Triangle triangleModel;
 	private Integer nbSide;
@@ -22,17 +22,17 @@ public class Polygone extends Shape {
 	}
 
 	@Override
-	Float area() {
+	public Float area() {
 		return this.nbSide*this.triangleModel.area();
 	}
 
 	@Override
-	Float perimeter() {
+	public Float perimeter() {
 		return this.nbSide*this.side;
 	}
 
 	@Override
-	String getShapeType() {
+	public String getShapeType() {
 		return shapeType;
 	}
 

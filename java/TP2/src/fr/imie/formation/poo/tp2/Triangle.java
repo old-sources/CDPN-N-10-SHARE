@@ -1,6 +1,6 @@
 package fr.imie.formation.poo.tp2;
 
-public class Triangle extends Shape {
+public class Triangle implements Shape {
 
 	private Float side1;
 	private Float side2;
@@ -15,18 +15,18 @@ public class Triangle extends Shape {
 	}
 
 	@Override
-	Float area() {
+	public Float area() {
 		Float p = (side1+side2+side3)/2;
 		return (float) Math.sqrt(p*(p-side1)*(p-side2)*(p-side3));
 	}
 
 	@Override
-	Float perimeter() {
+	public Float perimeter() {
 		return side1+side2+side3;
 	}
 
 	@Override
-	String getShapeType() {
+	public String getShapeType() {
 		return this.shapeType;
 	}
 
