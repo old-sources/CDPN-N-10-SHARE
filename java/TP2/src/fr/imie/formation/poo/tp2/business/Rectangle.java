@@ -1,11 +1,11 @@
-package fr.imie.formation.poo.tp2;
+package fr.imie.formation.poo.tp2.business;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Rectangle implements Shape {
-	
+
 	private Float width;
 	private Float height;
 	protected final String shapeType="rectangle";
@@ -15,7 +15,8 @@ public class Rectangle implements Shape {
 		return shapeType;
 	}
 	
-	public Rectangle(Float...sides){
+	@Override
+	public void init(Float...sides) {
 		if(sides[0]<=0 || sides[1]<=0){
 			throw new IllegalArgumentException("les côtés d'un rectangle doivent être positifs");
 		}

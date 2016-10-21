@@ -1,4 +1,4 @@
-package fr.imie.formation.poo.tp2;
+package fr.imie.formation.poo.tp2.business;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,8 +15,8 @@ public class Circle implements Shape {
 	}
 	
 	
-	public Circle(Float...params) {
-		super();
+	@Override
+	public void init(Float...params) {
 		this.radius = params[0];
 	}
 

@@ -1,4 +1,4 @@
-package fr.imie.formation.poo.tp2;
+package fr.imie.formation.poo.tp2.business;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,8 +13,9 @@ public class Square extends Rectangle {
 		return shapeType;
 	}
 	
-	public Square(Float...side) {
-		super(side[0],side[0]);
+	@Override
+	public void init(Float...side) {
+		super.init(side[0],side[0]);
 	}
 	
 	public static List<String> getBuildParameter(){

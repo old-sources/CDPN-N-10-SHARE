@@ -1,4 +1,4 @@
-package fr.imie.formation.poo.tp2;
+package fr.imie.formation.poo.tp2.business;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,8 +18,8 @@ public class Polygone implements Shape {
 	 * Le premier paramètre représente le rayon
 	 * Le second paramètre représente le nombre de côté
 	 */
-	public Polygone(Float... params) {
-		super();
+	@Override
+	public void init(Float...params) {
 		Integer nbSide = params[1].intValue();
 		if (nbSide < 3) {
 			throw new IllegalArgumentException("un polygone régulier doit avoir au moin 3 côtés");
@@ -28,7 +28,8 @@ public class Polygone implements Shape {
 			throw new IllegalArgumentException("la dimension du rayon de polygone régulier doit être positive");
 		}
 		this.side = (float) (2 * params[0] * Math.sin(Math.PI / nbSide));
-		this.triangleModel = new Triangle(this.side, params[0], params[0]);
+		this.triangleModel = new Triangle();
+		this.triangleModel.init(this.side, params[0], params[0]);
 		this.nbSide = nbSide;
 		
 

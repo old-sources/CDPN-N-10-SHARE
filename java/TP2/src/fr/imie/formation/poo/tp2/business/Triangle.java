@@ -1,4 +1,4 @@
-package fr.imie.formation.poo.tp2;
+package fr.imie.formation.poo.tp2.business;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,8 +11,8 @@ public class Triangle implements Shape {
 	private Float side3;
 	protected final String shapeType="triangle";
 
-	public Triangle(Float...sides) {
-		super();
+	@Override
+	public void init(Float...sides) {
 		this.side1 = sides[0];
 		this.side2 = sides[1];
 		this.side3 = sides[2];
