@@ -87,7 +87,7 @@ public class CVoitureThermique implements IVoitureThermique {
 	 */
 	@Override
 	public void RemplireReservoire(Float carburant) {
-		throw new IllegalAccessComportementException();
+		voitureThermique.setNiveau(voitureThermique.getNiveau()+carburant);
 
 	}
 

@@ -31,19 +31,22 @@ public class Main {
 //		System.out.format("état : %s%n", voiture.getEtat());
 		
 		
-		IVoitureElectrique voitureE= new VoitureElectrique();
-		voitureE.demarrer();
-		System.out.format("état : %s%n", voitureE.getEtat());
-		voitureE.chargerBatterie(40f);
+		IVoitureHybride voiture= new VoitureHybride();
+		voiture.demarrer();
+		System.out.format("état : %s%n", voiture.getEtat());
+		voiture.chargerBatterie(16f);
+		voiture.RemplireReservoire(8f);
+		
 		for (int i = 0; i < 200; i++) {
-			voitureE.avancer1km();
-			System.out.format("kilometrage : %s%n", voitureE.getNbKm());
-			System.out.format("charge : %s%n", voitureE.getCharge());
-			System.out.format("etat : %s%n", voitureE.getEtat());
+			voiture.avancer1km();
+			System.out.format("kilometrage : %s%n", voiture.getNbKm());
+			System.out.format("charge : %s%n", voiture.getCharge());
+			System.out.format("niveau : %s%n", voiture.getNiveau());
+			System.out.format("etat : %s%n", voiture.getEtat());
 			
 		}
-		voitureE.stoppper();
-		System.out.format("état : %s%n", voitureE.getEtat());
+		voiture.stoppper();
+		System.out.format("état : %s%n", voiture.getEtat());
 		
 		
 		
