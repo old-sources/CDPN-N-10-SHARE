@@ -2,8 +2,9 @@ package fr.imie;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.ArrayList;
+import java.util.List;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/projects")
 public class ProjectsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private ICrowdFundingService service;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -32,19 +36,7 @@ public class ProjectsServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		ArrayList<Projet> table = new ArrayList<>();
-		Projet newProjet1 = new Projet();
-		newProjet1.setNom("projet 1");
-		newProjet1.setObjectif(10000);
-		table.add(newProjet1);
-		Projet newProjet2 = new Projet();
-		newProjet2.setNom("projet 2");
-		newProjet2.setObjectif(50000);
-		table.add(newProjet2);
-		Projet newProjet3 = new Projet();
-		newProjet3.setNom("projet 3");
-		newProjet3.setObjectif(100000);
-		table.add(newProjet3);
+		List<CrowdFundingEntity> table = service.getAllCrowdFunfingDTO();
 		
 		request.getSession().setAttribute("table", table);
 
@@ -53,13 +45,13 @@ public class ProjectsServlet extends HttpServlet {
 		writer.append("<body>");
 		writer.append("<table>");
 		for (Integer i = 0;i<table.size(); i++) {
-			Projet projet = table.get(i);
+			CrowdFundingEntity projet = table.get(i);
 			writer.append("<tr>");
 			writer.append("<td>");
-			writer.append(projet.getNom());
+			writer.append(projet.getName());
 			writer.append("</td>");
 			writer.append("<td>");
-			writer.append(projet.getObjectif().toString());
+			writer.append(projet.getGoal().toString());
 			writer.append("</td>");
 			writer.append("<td>");
 			writer.append(String.format("<a href=\"./project?numLigne=%s\">editer</a>",i));

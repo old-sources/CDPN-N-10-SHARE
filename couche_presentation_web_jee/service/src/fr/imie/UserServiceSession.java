@@ -15,7 +15,6 @@ import fr.imie.UserEntity;
 
 @SessionScoped
 @Alternative
-@Stateful
 public class UserServiceSession implements IUserService, Serializable {
 
 	/**

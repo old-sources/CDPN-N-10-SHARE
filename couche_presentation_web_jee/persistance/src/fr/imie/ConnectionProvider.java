@@ -22,7 +22,7 @@ public class ConnectionProvider {
 		Connection connection;
 		connection = DriverManager
 				.getConnection("jdbc:postgresql://localhost:5432/crowdfunding",
-						"imiedev", "imiedev");
+						"postgres", "postgres");
 		return connection;
 	}
 

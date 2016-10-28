@@ -15,7 +15,6 @@ import java.io.Serializable;
 
 @SessionScoped
 @Alternative
-@Stateful
 @Mock
 public class CrowdfundingServiceSession implements Serializable, ICrowdFundingService  {
 

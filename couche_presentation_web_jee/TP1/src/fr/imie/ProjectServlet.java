@@ -2,7 +2,7 @@ package fr.imie;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,17 +29,17 @@ public class ProjectServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Projet> projets = (ArrayList<Projet>) request.getSession().getAttribute("table");
+		List<CrowdFundingEntity> projets = (List<CrowdFundingEntity>) request.getSession().getAttribute("table");
 		System.out.println(request.getParameter("numLigne"));
-		Projet projet = projets.get(Integer.parseInt(request.getParameter("numLigne")));
+		CrowdFundingEntity projet = projets.get(Integer.parseInt(request.getParameter("numLigne")));
 		
 		Writer writer = response.getWriter();
 		
 		writer.append("<html>");
 		writer.append("<body>");
-		writer.append(String.format("<h1>%S</h1>", projet.getNom()));
-		writer.append(String.format("<h2>%S</h2>", projet.getObjectif()));
-		writer.append(String.format("<div>%S</div>", projet.getDescriptif()));
+		writer.append(String.format("<h1>%S</h1>", projet.getName()));
+		writer.append(String.format("<h2>%S</h2>", projet.getGoal()));
+		writer.append(String.format("<div>%S</div>", projet.getDescription()));
 		writer.append("</body>");
 		writer.append("</html>");
 	}
