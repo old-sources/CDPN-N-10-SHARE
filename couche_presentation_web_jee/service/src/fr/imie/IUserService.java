@@ -7,5 +7,7 @@ import javax.ejb.Local;
 @Local
 public interface IUserService {
 	public List<UserEntity> getAllUsers();
+	
+	public UserEntity verifyUsers(UserEntity userToVerify);
 
 }

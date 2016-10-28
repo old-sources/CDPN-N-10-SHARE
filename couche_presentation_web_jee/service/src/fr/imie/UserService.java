@@ -13,7 +13,6 @@ import javax.inject.Named;
 
 @Dependent
 @Default
-@Stateless
 public class UserService implements IUserService {
 
 	@Inject IUserDAO userDAO;
@@ -27,6 +26,17 @@ public class UserService implements IUserService {
 			throw new RuntimeException(e.getMessage());
 		}
 		return retour;
+	}
+
+	@Override
+	public UserEntity verifyUsers(UserEntity userToVerify) {
+		UserEntity out= null;
+		try {
+			out= userDAO.getUsersLoginAndPassword(userToVerify.getLogin(),userToVerify.getPassw());
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+		return out;
 	}
 
 

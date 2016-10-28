@@ -25,7 +25,7 @@ public class CrowdFundingDAO implements ICrowdFundingDAO,ConnectionSupport {
 		List<CrowdFundingEntity> retour = new ArrayList<CrowdFundingEntity>();
 
 		statement = connection.createStatement();
-		resultSet = statement.executeQuery("SELECT id,nom,objectif FROM projet");
+		resultSet = statement.executeQuery("SELECT id,nom,objectif,description FROM projet");
 
 		while (resultSet.next()) {
 			CrowdFundingEntity crowdFundingDTO = buildDTOFromResultset(resultSet);
@@ -48,6 +48,9 @@ public class CrowdFundingDAO implements ICrowdFundingDAO,ConnectionSupport {
 		if (crowdFundingDTOToInsert.getGoal() != null) {
 			paramsList.add(new ParamJDBC("objectif", crowdFundingDTOToInsert.getGoal()));
 		}
+		if (crowdFundingDTOToInsert.getDescription() != null) {
+			paramsList.add(new ParamJDBC("description", crowdFundingDTOToInsert.getDescription()));
+		}
 	
 
 		String fields = "";
@@ -59,8 +62,8 @@ public class CrowdFundingDAO implements ICrowdFundingDAO,ConnectionSupport {
 			firstField = false;
 		}
 
-		String query = "INSERT into personne (".concat(fields).concat(") values (").concat(params)
-				.concat(") returning id,nom,objectif");
+		String query = "INSERT into projet (".concat(fields).concat(") values (").concat(params)
+				.concat(") returning id,nom,objectif,description");
 
 		statement = connection.prepareStatement(query);
 
@@ -82,6 +85,7 @@ public class CrowdFundingDAO implements ICrowdFundingDAO,ConnectionSupport {
 		retour.setId(resultSet.getInt("id"));
 		retour.setName(resultSet.getString("nom"));
 		retour.setGoal(resultSet.getInt("objectif"));
+		retour.setDescription(resultSet.getString("description"));
 
 		return retour;
 	}
@@ -95,6 +99,70 @@ public class CrowdFundingDAO implements ICrowdFundingDAO,ConnectionSupport {
 	@Override
 	public Connection getConnection() {
 		return this.connection;
+	}
+
+	@Override
+	public CrowdFundingEntity getCrowdFundingById(Integer id) throws SQLException  {
+		Statement statement = null;
+		ResultSet resultSet = null;
+		CrowdFundingEntity retour =null;
+
+		statement = connection.createStatement();
+		resultSet = statement.executeQuery(String.format("SELECT id,nom,objectif,description FROM projet WHERE id='%S'",id));
+
+		while (resultSet.next()) {
+			CrowdFundingEntity crowdFundingDTO = buildDTOFromResultset(resultSet);
+			retour =crowdFundingDTO;
+		}
+
+		return retour;
+	}
+
+	@Override
+	public CrowdFundingEntity updateCrowdFundingDTO(CrowdFundingEntity crowdFundingDTOToUpdate) throws SQLException {
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		CrowdFundingEntity retour = null;
+
+		List<ParamJDBC> paramsList = new ArrayList<ParamJDBC>();
+		if (crowdFundingDTOToUpdate.getName() != null) {
+			paramsList.add(new ParamJDBC("nom", crowdFundingDTOToUpdate.getName()));
+		}
+		if (crowdFundingDTOToUpdate.getGoal() != null) {
+			paramsList.add(new ParamJDBC("objectif", crowdFundingDTOToUpdate.getGoal()));
+		}
+		if (crowdFundingDTOToUpdate.getDescription() != null) {
+			paramsList.add(new ParamJDBC("description", crowdFundingDTOToUpdate.getDescription()));
+		}
+	
+	
+
+		String updateColumns = "";
+		Boolean firstField = true;
+		for (ParamJDBC paramJDBC : paramsList) {
+			if(!firstField){
+				updateColumns=updateColumns.concat(", ");
+			}
+			updateColumns=updateColumns.concat(paramJDBC.getNom()).concat("='").concat(paramJDBC.getValue().toString()).concat("' ");
+			firstField = false;
+		}
+
+		String query = "Update projet set ".concat(updateColumns).concat("WHERE id=").concat(crowdFundingDTOToUpdate.getId().toString()).concat(" returning id,nom,objectif,description");
+		
+		System.out.println(query);
+		
+		statement = connection.prepareStatement(query);
+
+//		Integer paraNumber = 1;
+//		for (ParamJDBC paramJDBC : paramsList) {
+//			statement.setObject(paraNumber++, paramJDBC.getValue());
+//		}
+
+		resultSet = statement.executeQuery();
+		resultSet.next();
+		retour = buildDTOFromResultset(resultSet);
+
+		return retour;
 	}
 
 }

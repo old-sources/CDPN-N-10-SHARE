@@ -102,4 +102,38 @@ public class UserDAO implements IUserDAO, ConnectionSupport {
 		return connection;
 	}
 
+	@Override
+	public UserEntity getUsersById(Integer userId) throws SQLException {
+		Statement statement = null;
+		ResultSet resultSet = null;
+		UserEntity retour =null;
+
+		statement = connection.createStatement();
+		resultSet = statement.executeQuery(String.format("SELECT id,nom,prenom,login,mdp FROM personne WHERE id='%S'",userId));
+
+		while (resultSet.next()) {
+			UserEntity userEntity = buildDTOFromResultset(resultSet);
+			retour =userEntity;
+		}
+
+		return retour;
+	}
+
+	@Override
+	public UserEntity getUsersLoginAndPassword(String login, String passw) throws SQLException {
+		Statement statement = null;
+		ResultSet resultSet = null;
+		UserEntity retour =null;
+
+		statement = connection.createStatement();
+		resultSet = statement.executeQuery(String.format("SELECT id,nom,prenom,login,mdp FROM personne WHERE login='%s' and mdp='%s'",login,passw));
+
+		while (resultSet.next()) {
+			UserEntity userEntity = buildDTOFromResultset(resultSet);
+			retour =userEntity;
+		}
+
+		return retour;
+	}
+
 }

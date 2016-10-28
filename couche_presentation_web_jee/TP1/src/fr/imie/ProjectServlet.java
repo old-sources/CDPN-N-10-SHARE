@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,40 +17,84 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/project")
 public class ProjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ProjectServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	@Inject
+	private ICrowdFundingService service;
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public ProjectServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		List<CrowdFundingEntity> projets = (List<CrowdFundingEntity>) request.getSession().getAttribute("table");
-		System.out.println(request.getParameter("numLigne"));
-		CrowdFundingEntity projet = projets.get(Integer.parseInt(request.getParameter("numLigne")));
-		
+		System.out.println(request.getParameter("id"));
+		Integer id = Integer.parseInt(request.getParameter("id"));
+
+		CrowdFundingEntity projet = service.getByIdCrowdfundingDTO(id);
+		// CrowdFundingEntity projet =
+		// projets.get(Integer.parseInt(request.getParameter("numLigne")));
+
 		Writer writer = response.getWriter();
-		
+		Boolean modeEdition = (Boolean) request.getAttribute("modeEdition");
+		modeEdition=modeEdition==null?false:modeEdition;
+
 		writer.append("<html>");
 		writer.append("<body>");
-		writer.append(String.format("<h1>%S</h1>", projet.getName()));
-		writer.append(String.format("<h2>%S</h2>", projet.getGoal()));
-		writer.append(String.format("<div>%S</div>", projet.getDescription()));
+		writer.append("<form method=\"POST\">");
+		if (!modeEdition) {
+			writer.append(String.format("<h1>%S</h1>", projet.getName()));
+			writer.append(String.format("<h2>%S</h2>", projet.getGoal()));
+			writer.append(String.format("<div>%S</div>", projet.getDescription()));
+		}else{
+			writer.append(String.format("<input name=\"idInput\" type=\"hidden\" value=\"%S\" />", projet.getId()));
+			writer.append(String.format("<div><label for=\"nameInput\">nom</label><input id=\"nameInput\" name=\"nameInput\" type=\"text\" value=\"%S\" /></div>", projet.getName()));
+			writer.append(String.format("<div><label for=\"goalInput\">objectif</label><input id=\"goalInput\" name=\"goalInput\" type=\"text\" value=\"%S\" /></div>", projet.getGoal()));
+			writer.append(String.format("<div><label for=\"descriptionInput\">descritpion</label><input id=\"descriptionInput\" name=\"descriptionInput\" type=\"text\" value=\"%S\" /></div>", projet.getDescription()));			
+		}
+		
+		writer.append("<div>");
+		
+		if (!modeEdition) {
+			writer.append("<button name=\"editionAction\">editer</button>");
+		}else{
+			writer.append("<button name=\"saveAction\">sauvegarder</button>");			
+		}
+		writer.append("</div>");
+		writer.append("</form>");
 		writer.append("</body>");
 		writer.append("</html>");
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		if (request.getParameter("editionAction") != null) {
+			request.setAttribute("modeEdition", true);
+			doGet(request, response);
+		}
+		if (request.getParameter("saveAction") != null) {
+			CrowdFundingEntity projet= new CrowdFundingEntity();
+			projet.setId(Integer.parseInt(request.getParameter("idInput")));
+			projet.setName(request.getParameter("nameInput"));
+			projet.setGoal(Integer.parseInt(request.getParameter("goalInput")));
+			projet.setDescription(request.getParameter("descriptionInput"));	
+			service.saveCrowdfundingDTO(projet);
+			response.sendRedirect("projects");
+		}
+
+		
 	}
 
 }

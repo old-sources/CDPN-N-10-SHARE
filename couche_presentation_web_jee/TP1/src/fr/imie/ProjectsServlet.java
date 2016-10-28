@@ -54,7 +54,7 @@ public class ProjectsServlet extends HttpServlet {
 			writer.append(projet.getGoal().toString());
 			writer.append("</td>");
 			writer.append("<td>");
-			writer.append(String.format("<a href=\"./project?numLigne=%s\">editer</a>",i));
+			writer.append(String.format("<a href=\"./project?id=%s\">editer</a>",projet.getId()));
 			writer.append("</td>");
 			writer.append("</tr>");
 		}

@@ -13,7 +13,6 @@ import javax.inject.Inject;
 
 @Dependent
 @Default
-@Stateless
 @Regular
 public class CrowdFundingService implements ICrowdFundingService {
 
@@ -26,6 +25,31 @@ public class CrowdFundingService implements ICrowdFundingService {
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
 		}
+	}
+
+	@Override
+	public CrowdFundingEntity getByIdCrowdfundingDTO(Integer id) {
+		try {
+			return crowdFundingDAO.getCrowdFundingById(id);
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+	}
+
+	@Override
+	public CrowdFundingEntity saveCrowdfundingDTO(CrowdFundingEntity projet) {
+		CrowdFundingEntity out= null;
+		try {
+			if(projet.getId()==null){
+				out=crowdFundingDAO.addCrowdFundingDTO(projet);
+			}else{
+				out=crowdFundingDAO.updateCrowdFundingDTO(projet);			
+			}
+			return out;
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+		
 	}
 
 }
