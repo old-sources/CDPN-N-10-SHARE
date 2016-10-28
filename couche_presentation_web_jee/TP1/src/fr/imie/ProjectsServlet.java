@@ -62,10 +62,7 @@ public class ProjectsServlet extends HttpServlet {
 			writer.append(projet.getObjectif().toString());
 			writer.append("</td>");
 			writer.append("<td>");
-			writer.append("<form method=\"POST\">");
-			writer.append(String.format("<input type=\"hidden\" name=\"numLigne\" value=\"%s\"/>",i));
-			writer.append("<button>editer</button>");
-			writer.append("</form>");
+			writer.append(String.format("<a href=\"./project?numLigne=%s\">editer</a>",i));
 			writer.append("</td>");
 			writer.append("</tr>");
 		}
@@ -82,10 +79,7 @@ public class ProjectsServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		ArrayList<Projet> projets = (ArrayList<Projet>) request.getSession().getAttribute("table");
-		System.out.println(request.getParameter("numLigne"));
-		System.out.println(projets.get(Integer.parseInt(request.getParameter("numLigne"))).getNom());
-		System.out.println("FIN DE JOURNEE");
+
 		doGet(request, response);
 	}
 
