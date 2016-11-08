@@ -19,14 +19,12 @@ import javax.servlet.http.HttpServletResponse;
 @WebFilter("/*")
 public class SecurityFilter implements Filter {
 
-
-	
-    /**
-     * Default constructor. 
-     */
-    public SecurityFilter() {
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * Default constructor.
+	 */
+	public SecurityFilter() {
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see Filter#destroy()
@@ -38,31 +36,28 @@ public class SecurityFilter implements Filter {
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		// place your code here
-		
-		
-		HttpServletRequest httpRequest =(HttpServletRequest) request;
-		HttpServletResponse httpResponse =(HttpServletResponse) response;
-		
-		
-		
-		UserEntity connectedUser = (UserEntity) httpRequest.getSession().getAttribute("connectedUser");
-		if(connectedUser==null && !httpRequest.getRequestURI().contains("login")){
-			httpResponse.sendRedirect("login");
-		}
-		
 
-		
-		// pass the request along the filter chain
-		chain.doFilter(request, response);
-		
-		UserEntity newConnectedUser = (UserEntity) httpRequest.getSession().getAttribute("connectedUser");
-		if(connectedUser==null && newConnectedUser!=null){
-			httpResponse.sendRedirect("projects");
+		HttpServletRequest httpRequest = (HttpServletRequest) request;
+		HttpServletResponse httpResponse = (HttpServletResponse) response;
+
+		UserEntity connectedUser = (UserEntity) httpRequest.getSession().getAttribute("connectedUser");
+		if (connectedUser == null && !httpRequest.getRequestURI().contains("login")) {
+			httpResponse.sendRedirect("login");
+		} else {
+
+			// pass the request along the filter chain
+			chain.doFilter(request, response);
+
+			UserEntity newConnectedUser = (UserEntity) httpRequest.getSession().getAttribute("connectedUser");
+			if (connectedUser == null && newConnectedUser != null) {
+				httpResponse.sendRedirect("projects");
+			}
 		}
-		
+
 	}
 
 	/**

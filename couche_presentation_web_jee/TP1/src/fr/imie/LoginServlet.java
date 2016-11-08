@@ -32,22 +32,14 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Writer writer = response.getWriter();
-		writer.append("<html>");
-		writer.append("<body>");
-		writer.append("<form method=\"POST\">");
-		writer.append(String.format("<div><label for=\"loginInput\">login</label><input id=\"loginInput\" name=\"loginInput\" type=\"text\" /></div>"));
-		writer.append(String.format("<div><label for=\"passwInput\">mot de passe</label><input id=\"passwInput\" name=\"passwInput\" type=\"password\" /></div>"));
-		writer.append("<button name=\"loginAction\">se connecter</button>");
-		writer.append("</form>");
-		writer.append("</body>");
-		writer.append("</html>");
+		request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Boolean connected = false;
 		if(request.getParameter("loginAction")!=null){
 			UserEntity unsecuredUser = new UserEntity();
 			unsecuredUser.setLogin(request.getParameter("loginInput"));
@@ -55,9 +47,14 @@ public class LoginServlet extends HttpServlet {
 			UserEntity securedUser = service.verifyUsers(unsecuredUser);
 			if(securedUser!=null){
 				request.getSession().setAttribute("connectedUser", securedUser);
+				connected=true;
 			}
 		}
-		doGet(request, response);
+		
+		if(connected==false){
+			doGet(request, response);
+		}
+		
 	}
 
 }

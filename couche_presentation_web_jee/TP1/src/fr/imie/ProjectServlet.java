@@ -39,39 +39,17 @@ public class ProjectServlet extends HttpServlet {
 		System.out.println(request.getParameter("id"));
 		Integer id = Integer.parseInt(request.getParameter("id"));
 
-		CrowdFundingEntity projet = service.getByIdCrowdfundingDTO(id);
+		CrowdFundingEntity project = service.getByIdCrowdfundingDTO(id);
+		request.setAttribute("project", project);
 		// CrowdFundingEntity projet =
 		// projets.get(Integer.parseInt(request.getParameter("numLigne")));
 
 		Writer writer = response.getWriter();
 		Boolean modeEdition = (Boolean) request.getAttribute("modeEdition");
 		modeEdition=modeEdition==null?false:modeEdition;
+		request.setAttribute("modeEdition",modeEdition);
 
-		writer.append("<html>");
-		writer.append("<body>");
-		writer.append("<form method=\"POST\">");
-		if (!modeEdition) {
-			writer.append(String.format("<h1>%S</h1>", projet.getName()));
-			writer.append(String.format("<h2>%S</h2>", projet.getGoal()));
-			writer.append(String.format("<div>%S</div>", projet.getDescription()));
-		}else{
-			writer.append(String.format("<input name=\"idInput\" type=\"hidden\" value=\"%S\" />", projet.getId()));
-			writer.append(String.format("<div><label for=\"nameInput\">nom</label><input id=\"nameInput\" name=\"nameInput\" type=\"text\" value=\"%S\" /></div>", projet.getName()));
-			writer.append(String.format("<div><label for=\"goalInput\">objectif</label><input id=\"goalInput\" name=\"goalInput\" type=\"text\" value=\"%S\" /></div>", projet.getGoal()));
-			writer.append(String.format("<div><label for=\"descriptionInput\">descritpion</label><input id=\"descriptionInput\" name=\"descriptionInput\" type=\"text\" value=\"%S\" /></div>", projet.getDescription()));			
-		}
-		
-		writer.append("<div>");
-		
-		if (!modeEdition) {
-			writer.append("<button name=\"editionAction\">editer</button>");
-		}else{
-			writer.append("<button name=\"saveAction\">sauvegarder</button>");			
-		}
-		writer.append("</div>");
-		writer.append("</form>");
-		writer.append("</body>");
-		writer.append("</html>");
+		request.getRequestDispatcher("/WEB-INF/project.jsp").forward(request, response);;
 	}
 
 	/**

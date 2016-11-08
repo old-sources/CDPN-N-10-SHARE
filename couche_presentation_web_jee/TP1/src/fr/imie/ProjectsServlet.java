@@ -36,31 +36,12 @@ public class ProjectsServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		List<CrowdFundingEntity> table = service.getAllCrowdFunfingDTO();
+		List<CrowdFundingEntity> projets = service.getAllCrowdFunfingDTO();
 		
-		request.getSession().setAttribute("table", table);
+		request.setAttribute("projects", projets);
+		
+		request.getRequestDispatcher("WEB-INF/projects.jsp").forward(request, response);
 
-		Writer writer = response.getWriter();
-		writer.append("<html>");
-		writer.append("<body>");
-		writer.append("<table>");
-		for (Integer i = 0;i<table.size(); i++) {
-			CrowdFundingEntity projet = table.get(i);
-			writer.append("<tr>");
-			writer.append("<td>");
-			writer.append(projet.getName());
-			writer.append("</td>");
-			writer.append("<td>");
-			writer.append(projet.getGoal().toString());
-			writer.append("</td>");
-			writer.append("<td>");
-			writer.append(String.format("<a href=\"./project?id=%s\">editer</a>",projet.getId()));
-			writer.append("</td>");
-			writer.append("</tr>");
-		}
-		writer.append("</table>");
-		writer.append("</body>");
-		writer.append("</html>");
 
 	}
 
