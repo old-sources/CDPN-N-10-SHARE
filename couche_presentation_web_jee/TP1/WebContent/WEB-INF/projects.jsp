@@ -1,26 +1,25 @@
-<%@page import="fr.imie.CrowdFundingEntity"%>
-<%@page import="java.util.List"%>
+<%@ page import="fr.imie.CrowdFundingEntity"%>
+<%@ page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!doctype html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
 <title>Liste de Projet</title>
 </head>
 <body>
 	<table>
-		<%
-			List<CrowdFundingEntity> projectList = (List<CrowdFundingEntity>) request.getAttribute("projects");
-			for (CrowdFundingEntity projet : projectList) {
-		%>
-		<tr>
-			<td><%=projet.getName()%></td>
-			<td><%=projet.getGoal().toString()%></td>
-			<td><a href="./project?id=<%=projet.getId()%>">editer</a></td>
-		</tr>
-		<%
-			}
-		%>
+
+		<c:forEach items="${projects}" var="project">
+			<tr>
+				<td><c:out value="${project.name}"/></td>
+				<td><c:out value="${project.goal}"/></td>
+				<td><a href="./project?id=${project.id}">editer</a></td>
+			</tr>
+		</c:forEach>
+		
 	</table>
 
 

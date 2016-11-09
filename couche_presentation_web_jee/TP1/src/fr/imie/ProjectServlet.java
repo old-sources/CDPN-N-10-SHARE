@@ -39,12 +39,13 @@ public class ProjectServlet extends HttpServlet {
 		System.out.println(request.getParameter("id"));
 		Integer id = Integer.parseInt(request.getParameter("id"));
 
+		
 		CrowdFundingEntity project = service.getByIdCrowdfundingDTO(id);
 		request.setAttribute("project", project);
 		// CrowdFundingEntity projet =
 		// projets.get(Integer.parseInt(request.getParameter("numLigne")));
 
-		Writer writer = response.getWriter();
+		//Writer writer = response.getWriter();
 		Boolean modeEdition = (Boolean) request.getAttribute("modeEdition");
 		modeEdition=modeEdition==null?false:modeEdition;
 		request.setAttribute("modeEdition",modeEdition);

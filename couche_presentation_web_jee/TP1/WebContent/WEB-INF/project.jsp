@@ -1,56 +1,51 @@
 <%@page import="fr.imie.CrowdFundingEntity"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<fmt:setLocale value="${locale}" />
+<fmt:setBundle basename="fr.imie.labels" var="labelsProperties" />
+<!doctype html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
 <title>Insert title here</title>
 </head>
 <body>
-<% Boolean modeEdition = (Boolean) request.getAttribute("modeEdition");%>
-<% CrowdFundingEntity project = (CrowdFundingEntity) request.getAttribute("project");%>
-	<form method="POST">
-		<%
-			if (!modeEdition) {
-		%>
-		<h1><%=project.getName()%></h1>
-		<h2><%=project.getGoal()%></h2>
-		<div><%=project.getDescription()%></div>
-		<%
-			} else {
-		%>
-		<input name="idInput" type="hidden" value="<%=project.getId()%>" />
-		<div>
-			<label for="nameInput">nom</label><input id="nameInput"
-				name="nameInput" type="text" value="<%=project.getName()%>" />
-		</div>
-		<div>
-			<label for="goalInput">objectif</label><input id="goalInput"
-				name="goalInput" type="text" value="<%=project.getGoal()%>" />
-		</div>
-		<div>
-			<label for="descriptionInput">descritpion</label><input
-				id="descriptionInput" name="descriptionInput" type="text"
-				value="<%=project.getDescription()%>" />
-		</div>
-		<%
-			}
-		%>
-		<div>
-			<%
-				if (!modeEdition) {
-			%>
-			<button name="editionAction">editer</button>
-			<%
-				} else {
-			%>
-			<button name="saveAction">sauvegarder</button>
-			<%
-				}
-			%>
+	<fmt:message key="projectScreenTitle" bundle="${labelsProperties}" />
 
-		</div>
+	<form method="POST">
+		<c:choose>
+			<c:when test="${! modeEdition}">
+				<h1>
+					<c:out value="${project.name}" />
+				</h1>
+				<h2>
+					<c:out value="${project.goal}" />
+				</h2>
+				<div>
+					<c:out value="${project.description}" />
+				</div>
+				<button name="editionAction"><fmt:message key="projectEditButton" bundle="${labelsProperties}" /></button>
+			</c:when>
+			<c:otherwise>
+				<input name="idInput" type="hidden" value="${project.id}" />
+				<div>
+					<label for="nameInput"><fmt:message key="projectNameLabel" bundle="${labelsProperties}" /></label><input id="nameInput"
+						name="nameInput" type="text" value="${project.name}" />
+				</div>
+				<div>
+					<label for="goalInput"><fmt:message key="projectGoalLabel" bundle="${labelsProperties}" /></label><input id="goalInput"
+						name="goalInput" type="text" value="${project.goal}" />
+				</div>
+				<div>
+					<label for="descriptionInput"><fmt:message key="projectDescriptionLabel" bundle="${labelsProperties}" /></label><input
+						id="descriptionInput" name="descriptionInput" type="text"
+						value="${project.description}" />
+				</div>
+				<button name="saveAction"><fmt:message key="projectSaveButton" bundle="${labelsProperties}" /></button>
+			</c:otherwise>
+		</c:choose>
 	</form>
 
 </body>
