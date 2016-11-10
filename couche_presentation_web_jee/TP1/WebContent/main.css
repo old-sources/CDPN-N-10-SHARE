@@ -1,0 +1,52 @@
+@CHARSET "UTF-8";
+
+
+
+*{
+	box-sizing: border-box;
+}
+
+body{
+	display:flex;
+	flex-direction : column;
+	height:100vh;
+	padding:0;
+	margin :0;	
+
+}
+
+header{
+	flex-basis : 50px;
+	display:flex;
+	flex-direction:row;
+	justify-content: space-between;
+	background-color: grey;
+	color : white;
+}
+
+#mainContainer{
+	display:flex;
+	flex-direction : row;
+}
+
+nav{
+	flex-basis : 100px;
+	background-color: grey;
+	color : white;
+}
+
+section{
+	flex-grow : 1;
+}
+
+.logo{
+	width: 100%;
+}
+
+#headerLogo{
+	flex-basis : 150px;
+}
+
+#headerUserBlock{
+	flex-basis : 200px;
+}

@@ -26,7 +26,7 @@ public class ContributionDAO implements IContributionDAO, ConnectionSupport {
 		List<DonEntity> retour = new ArrayList<DonEntity>();
 
 		statement = connection.createStatement();
-		resultSet = statement.executeQuery(String.format("SELECT don.id,don.valeur,personne.id AS personne_id,personne.login AS personne_login FROM don,personne WHERE don.personne_id = don.id AND don.projet_id=%S",crowdFundingEntity.getId()));
+		resultSet = statement.executeQuery(String.format("SELECT don.id,don.valeur,personne.id AS personne_id,personne.login AS personne_login FROM don INNER JOIN personne ON don.personne_id = personne.id  WHERE don.projet_id=%S",crowdFundingEntity.getId()));
 
 		while (resultSet.next()) {
 			DonEntity donDTO = buildDTOFromResultset(resultSet);

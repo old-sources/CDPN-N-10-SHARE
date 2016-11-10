@@ -51,6 +51,11 @@ public class LoginServlet extends HttpServlet {
 			}
 		}
 		
+		if(request.getParameter("logoutAction")!=null){
+			request.getSession().removeAttribute("connectedUser");
+			doGet(request, response);
+		}
+		
 		if(connected==false){
 			doGet(request, response);
 		}
