@@ -17,11 +17,19 @@ import javax.inject.Inject;
 public class CrowdFundingService implements ICrowdFundingService {
 
 	private @Inject ICrowdFundingDAO crowdFundingDAO;
+	private @Inject IContributionDAO contributionDAO;
 	
 	@Override
 	public List<CrowdFundingEntity> getAllCrowdFunfingDTO() {
 		try {
-			return crowdFundingDAO.getCrowdFundings();
+			List<CrowdFundingEntity> out= crowdFundingDAO.getCrowdFundings();
+			for (CrowdFundingEntity crowdFundingEntity : out) {
+				crowdFundingEntity.setDons(contributionDAO.getContributionsByCrowdFunding(crowdFundingEntity));
+				System.out.println(crowdFundingEntity.getDons());
+			}
+			
+			return out;
+
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
 		}
@@ -31,6 +39,7 @@ public class CrowdFundingService implements ICrowdFundingService {
 	public CrowdFundingEntity getByIdCrowdfundingDTO(Integer id) {
 		try {
 			return crowdFundingDAO.getCrowdFundingById(id);
+			
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
 		}

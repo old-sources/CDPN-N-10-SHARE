@@ -15,7 +15,6 @@ import javax.inject.Inject;
 @ConnetionManagement
 public class CrowdFundingDAO implements ICrowdFundingDAO,ConnectionSupport {
 
-	private @Inject ConnectionProvider connectionProvider;
 	private Connection connection;
 	
 	@Override
