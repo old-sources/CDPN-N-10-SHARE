@@ -46,6 +46,11 @@ public class SecurityFilter implements Filter {
 
 		UserEntity connectedUser = (UserEntity) httpRequest.getSession().getAttribute("connectedUser");
 		if (connectedUser == null && !httpRequest.getRequestURI().contains("login")) {
+			String redirectUrl = httpRequest.getRequestURI();
+			if(httpRequest.getQueryString()!=null){
+				redirectUrl = redirectUrl .concat("?").concat(httpRequest.getQueryString());
+			}
+			httpRequest.getSession().setAttribute("redirectUrl", redirectUrl);
 			httpResponse.sendRedirect("login");
 		} else {
 
@@ -54,7 +59,13 @@ public class SecurityFilter implements Filter {
 
 			UserEntity newConnectedUser = (UserEntity) httpRequest.getSession().getAttribute("connectedUser");
 			if (connectedUser == null && newConnectedUser != null) {
-				httpResponse.sendRedirect("projects");
+				String redirectUrl = (String) httpRequest.getSession().getAttribute("redirectUrl");
+				if(redirectUrl==null){
+					httpResponse.sendRedirect("projects");
+				}else{
+					httpResponse.sendRedirect((String) httpRequest.getSession().getAttribute("redirectUrl"));
+				}
+				httpRequest.getSession().removeAttribute("redirectUrl");
 			}
 		}
 
