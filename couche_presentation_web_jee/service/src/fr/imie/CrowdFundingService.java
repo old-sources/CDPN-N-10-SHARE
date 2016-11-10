@@ -38,7 +38,9 @@ public class CrowdFundingService implements ICrowdFundingService {
 	@Override
 	public CrowdFundingEntity getByIdCrowdfundingDTO(Integer id) {
 		try {
-			return crowdFundingDAO.getCrowdFundingById(id);
+			CrowdFundingEntity crowdFundingById = crowdFundingDAO.getCrowdFundingById(id);
+			crowdFundingById.setDons(contributionDAO.getContributionsByCrowdFunding(crowdFundingById));
+			return crowdFundingById;
 			
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
