@@ -142,7 +142,7 @@ public class CrowdFundingDAO implements ICrowdFundingDAO,ConnectionSupport {
 			if(!firstField){
 				updateColumns=updateColumns.concat(", ");
 			}
-			updateColumns=updateColumns.concat(paramJDBC.getNom()).concat("='").concat(paramJDBC.getValue().toString()).concat("' ");
+			updateColumns=updateColumns.concat(paramJDBC.getNom()).concat("=? ");
 			firstField = false;
 		}
 
@@ -152,10 +152,10 @@ public class CrowdFundingDAO implements ICrowdFundingDAO,ConnectionSupport {
 		
 		statement = connection.prepareStatement(query);
 
-//		Integer paraNumber = 1;
-//		for (ParamJDBC paramJDBC : paramsList) {
-//			statement.setObject(paraNumber++, paramJDBC.getValue());
-//		}
+		Integer paraNumber = 1;
+		for (ParamJDBC paramJDBC : paramsList) {
+			statement.setObject(paraNumber++, paramJDBC.getValue());
+		}
 
 		resultSet = statement.executeQuery();
 		resultSet.next();
