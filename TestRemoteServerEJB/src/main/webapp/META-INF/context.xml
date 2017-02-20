@@ -1,0 +1,25 @@
+<Context xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<Resource
+		name="jdbc/test"
+		type="javax.sql.DataSource"
+		JtaManaged="true"
+		driverClassName="com.mysql.jdbc.Driver"
+		url="jdbc:mysql:///ejb"
+		username="root"
+		password=""
+		/>
+
+	<!-- <Resource -->
+	<!-- name="jdbc/xa" -->
+	<!-- type="javax.sql.XADataSource" -->
+	<!-- JtaManaged="true" -->
+
+	<!-- driverClassName="com.mysql.jdbc.Driver" -->
+	<!-- url="jdbc:mysql:///ejb" -->
+	<!-- username="root" -->
+	<!-- password="" -->
+
+	<!-- /> -->
+	<!-- auth="Container" validationQuery="select 1 from DUAL" maxIdle="2" maxWait="5000" maxActive="4" -->
+</Context>

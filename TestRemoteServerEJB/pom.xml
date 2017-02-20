@@ -1,0 +1,149 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>fr.imie.cours</groupId>
+	<artifactId>TestRemoteServerEJB</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<jstl.version>1.2</jstl.version>
+		<spring.version>[4.2,4.3)</spring.version>
+		<jpa.version>[2.1,)</jpa.version>
+		<eclipselink.version>[2.6,)</eclipselink.version>
+		<hibernate.version>[5.2,)</hibernate.version>
+		<derby.version>[10.13,)</derby.version>
+		<mysql.version>[5.1,6.0)</mysql.version>
+		<!-- <postgresql.version>9.4.1212</postgresql.version> -->
+		<postgresql.version>[9.4,)</postgresql.version>
+	</properties>
+	<build>
+		<pluginManagement>
+			<plugins>
+				<!-- <plugin> -->
+				<!-- <groupId>org.codehaus.mojo</groupId> -->
+				<!-- <artifactId>versions-maven-plugin</artifactId> -->
+				<!-- <configuration> -->
+				<!-- <rulesUri>file://d:/repo/maven-versions-rules.xml</rulesUri> -->
+				<!-- </configuration> -->
+				<!-- </plugin> -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<configuration>
+						<archive>
+							<addMavenDescriptor>false</addMavenDescriptor>
+						</archive>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<finalName>${project.artifactId}</finalName>
+		<plugins>
+		</plugins>
+	</build>
+	<dependencies>
+		<!-- ====== -->
+		<!-- WEBAPP -->
+		<!-- ====== -->
+		<!-- https://mvnrepository.com/artifact/javax/javaee-api -->
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>7.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>${jstl.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<!-- ========== -->
+		<!-- DATA LAYER -->
+		<!-- ========== -->
+		<!-- https://mvnrepository.com/artifact/org.eclipse.persistence/javax.persistence (2.x) -->
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>javax.persistence</artifactId>
+			<version>[2.0,)</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.persistence/persistence-api (1.x) -->
+		<!-- <dependency> -->
+		<!-- <groupId>javax.persistence</groupId> -->
+		<!-- <artifactId>persistence-api</artifactId> -->
+		<!-- <version>[1.0,2.0)</version> -->
+		<!-- <scope>provided</scope> -->
+		<!-- </dependency> -->
+		<!-- https://mvnrepository.com/artifact/org.eclipse.persistence/org.eclipse.persistence.jpa (1.2 MB) -->
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>org.eclipse.persistence.jpa</artifactId>
+			<version>${eclipselink.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.eclipse.persistence/eclipselink (8.2 MB) -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.eclipse.persistence</groupId> -->
+		<!-- <artifactId>eclipselink</artifactId> -->
+		<!-- <version>${eclipselink.version}</version> -->
+		<!-- <scope>provided</scope> -->
+		<!-- </dependency> -->
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernate.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-ehcache -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-ehcache</artifactId>
+			<version>${hibernate.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/net.sf.ehcache/ehcache (2.x) -->
+		<!-- <dependency> -->
+		<!-- <groupId>net.sf.ehcache</groupId> -->
+		<!-- <artifactId>ehcache</artifactId> -->
+		<!-- <version>[2.10,)</version> -->
+		<!-- <scope>provided</scope> -->
+		<!-- </dependency> -->
+		<!-- https://mvnrepository.com/artifact/org.ehcache/ehcache (3.x) -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.ehcache</groupId> -->
+		<!-- <artifactId>ehcache</artifactId> -->
+		<!-- <version>[3.2,)</version> -->
+		<!-- <scope>provided</scope> -->
+		<!-- </dependency> -->
+		<!-- https://mvnrepository.com/artifact/org.apache.derby/derby -->
+		<dependency>
+			<groupId>org.apache.derby</groupId>
+			<artifactId>derby</artifactId>
+			<version>${derby.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${postgresql.version}</version>
+		</dependency>
+	</dependencies>
+</project>
