@@ -4,16 +4,30 @@
 	<groupId>fr.imie.cours</groupId>
 	<artifactId>TutoServerEJB</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<jstl.version>1.2</jstl.version>
+		<spring.version>[4.2,4.3)</spring.version>
+		<jpa.version>[2.1,)</jpa.version>
+		<eclipselink.version>[2.6,)</eclipselink.version>
+		<hibernate.version>[5.2,)</hibernate.version>
+		<derby.version>[10.13,)</derby.version>
+		<mysql.version>[5.1,6.0)</mysql.version>
+	</properties>
 	<dependencies>
-		<!-- ====== -->
-		<!-- WEBAPP -->
-		<!-- ====== -->
 		<!-- https://mvnrepository.com/artifact/javax/javaee-api -->
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
 			<version>7.0</version>
 			<scope>provided</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.version}</version>
 		</dependency>
 	</dependencies>
 </project>
